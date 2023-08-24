@@ -38,7 +38,7 @@ public class PedidoDAO {
         String sql = "DELETE FROM pedido WHERE pedido.idpedido = " + cod;
         Conexao.executar(sql);
     }
-    public static ArrayList<Pedido> carregarPedidos(){
+    public ArrayList<Pedido> carregarPedidos(){
         ArrayList<Pedido> lista = new ArrayList();
         String sql = "SELECT idpedido, tipo_pagamento, cpf, total, data FROM pedido";
         ResultSet rs = Conexao.consultar(sql);

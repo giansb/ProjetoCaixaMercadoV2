@@ -5,6 +5,10 @@
  */
 package model;
 
+import DAO.ProdutoDAO;
+import controller.PedidoController;
+import java.util.ArrayList;
+
 /**
  *
  * @author gianb
@@ -77,6 +81,11 @@ public class Pedido {
 
     public void setData(String data) {
         this.data = data;
+    }
+    
+    public void criarPedido(){
+        PedidoController pc = new PedidoController();
+        pc.criarPedido();
     }
     
     

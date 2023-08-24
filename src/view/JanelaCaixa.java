@@ -8,6 +8,7 @@ package view;
 import com.sun.glass.events.KeyEvent;
 import javax.swing.*;
 import java.awt.*;
+import model.Pedido;
 public class JanelaCaixa extends javax.swing.JFrame {
 
     /**
@@ -16,6 +17,8 @@ public class JanelaCaixa extends javax.swing.JFrame {
     public JanelaCaixa() {
         initComponents();
         this.setFocusable(rootPaneCheckingEnabled);
+        Pedido p = new Pedido();
+        p.criarPedido();
         
         
     }
