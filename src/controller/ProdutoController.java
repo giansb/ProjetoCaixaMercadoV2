@@ -17,7 +17,7 @@ public class ProdutoController {
     private Produto p ;
     
     
-    public static ArrayList<Produto> carregarProdutos(){
+    public ArrayList<Produto> carregarProdutos(){
         
         
         ProdutoDAO p = new ProdutoDAO();
@@ -36,7 +36,8 @@ public class ProdutoController {
     
     
     public static Produto procurarProduto(int cod){
-        ArrayList<Produto> lista = carregarProdutos();
+        Produto p = new Produto();
+        ArrayList<Produto> lista = p.getProduto();
          for(Produto pe:lista){
                 if(pe.getCodigo() == cod){
                     return pe;

@@ -5,6 +5,7 @@
  */
 package model;
 
+import DAO.PedidoDAO;
 import DAO.ProdutoDAO;
 import controller.PedidoController;
 import java.util.ArrayList;
@@ -83,9 +84,17 @@ public class Pedido {
         this.data = data;
     }
     
-    public void criarPedido(){
-        PedidoController pc = new PedidoController();
-        pc.criarPedido();
+    public int pedidoAtual(){
+        PedidoDAO pd = new PedidoDAO();
+        ArrayList<Pedido> lista = pd.carregarPedidos();
+        int qntd;
+        if(lista.size()>0){
+            qntd = lista.size()-1;
+        } else {
+            qntd = 0;
+        }
+        return qntd;
+        
     }
     
     

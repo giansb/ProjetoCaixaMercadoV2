@@ -18,7 +18,6 @@ public class PedidoController {
         PedidoDAO pd = new PedidoDAO();
         ArrayList<Pedido> lista = new ArrayList();
         lista = pd.carregarPedidos();
-        
         return lista.size();
     }
     

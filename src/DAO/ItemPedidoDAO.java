@@ -25,6 +25,7 @@ public class ItemPedidoDAO {
                 + "" + ip.getIdPedido() + ")";
         Conexao.executar(sql);
     }
+    
     public void editarItemPedido(ItemPedido ip){
         String sql = "UPDATE produto_has_pedido SET"
                 + "produto_idproduto = " + ip.getIdProduto() + ","

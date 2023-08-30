@@ -6,8 +6,11 @@
 package view;
 
 import com.sun.glass.events.KeyEvent;
+import controller.ItemPedidoController;
+import controller.PedidoController;
 import javax.swing.*;
 import java.awt.*;
+import model.ItemPedido;
 import model.Pedido;
 public class JanelaCaixa extends javax.swing.JFrame {
 
@@ -17,8 +20,8 @@ public class JanelaCaixa extends javax.swing.JFrame {
     public JanelaCaixa() {
         initComponents();
         this.setFocusable(rootPaneCheckingEnabled);
-        Pedido p = new Pedido();
-        p.criarPedido();
+        PedidoController pc = new PedidoController();
+        pc.criarPedido();
         
         
     }
@@ -815,15 +818,25 @@ public class JanelaCaixa extends javax.swing.JFrame {
     
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_F1){
-            System.out.println("inserir item");
+            String cod = JOptionPane.showInputDialog("Código do item:");
+            ItemPedidoController ipc = new ItemPedidoController();
+            ipc.cadastrarItemPedido(Integer.valueOf(cod));
+            
+            
         } else if(evt.getKeyCode() == KeyEvent.VK_F2){
             System.out.println("inserir quantidade");
+            String qtd = JOptionPane.showInputDialog("Quantidade:");
+            System.out.println(qtd);
+            
         } else if(evt.getKeyCode() == KeyEvent.VK_F3){
+            // ira excluir o ultimo item do pedido
             System.out.println("excluir item");
         } else if(evt.getKeyCode() == KeyEvent.VK_F4){
             System.out.println("Excluir venda");
+            // vai excluir a venda atual e todos os itens do pedido dela
         } else if(evt.getKeyCode() == KeyEvent.VK_F5){
             System.out.println("add cpf");
+            
         } else if(evt.getKeyCode() == KeyEvent.VK_F6){
             System.out.println("forma de pagamento");
         } else if(evt.getKeyCode() == KeyEvent.VK_F7){

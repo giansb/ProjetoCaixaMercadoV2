@@ -5,6 +5,9 @@
  */
 package model;
 
+import DAO.ItemPedidoDAO;
+import java.util.ArrayList;
+
 
 
 public class ItemPedido {
@@ -24,6 +27,10 @@ public class ItemPedido {
         this.qntd = qntd;
         this.produto_nome = produto_nome;
         this.precoTotal = precoTotal;
+    }
+
+    public ItemPedido() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getId_has() {
@@ -80,6 +87,22 @@ public class ItemPedido {
 
     public void setPrecoTotal(double precoTotal) {
         this.precoTotal = precoTotal;
+    }
+    
+    public void registrarItemPedido(Produto p1){
+        ItemPedido ip = new ItemPedido();
+        Pedido p = new Pedido();
+        
+        ip.setIdPedido(p.pedidoAtual());
+        ip.setPrecoTotal(p1.getPreco());
+        ip.setProduto_nome(p1.getNome());
+        ip.setQntd(1);
+        
+        ip.setId_has(0);
+        
+        ItemPedidoDAO ipd = new ItemPedidoDAO();
+        ipd.cadastrarItemPedido(ip);
+        
     }
     
 }

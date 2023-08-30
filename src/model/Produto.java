@@ -4,6 +4,7 @@
  */
 package model;
 
+import DAO.ProdutoDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -49,7 +50,11 @@ public class Produto {
         this.preco = preco;
     }
     
-    
+    public ArrayList<Produto> getProduto(){
+        ProdutoDAO p = new ProdutoDAO();
+        return p.getProduto();
+        
+    }
     
     
 
