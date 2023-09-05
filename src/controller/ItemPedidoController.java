@@ -18,18 +18,26 @@ import model.Produto;
  */
 public class ItemPedidoController {
     
-    public void cadastrarItemPedido(int cod){
+    public ItemPedido cadastrarItemPedido(int cod){
+        
         ItemPedido ip = new ItemPedido();
         Produto pi = new Produto();
         ArrayList<Produto> lista = pi.getProduto();
+        System.out.println(lista);
         
         for(Produto p : lista){
             if(p.getCodigo() == cod){
+                PedidoController pc = new PedidoController();
+                ip.setProduto_nome(p.getNome());
+                ip.setQntd(ip.getQntd());
+                ip.setPrecoTotal(p.getPreco());
             ip.registrarItemPedido(p);
-            JOptionPane.showMessageDialog(null, "teste");
+            
+            
         }
+           
         }
-        
+        return ip;
         
     }
     
@@ -39,7 +47,11 @@ public class ItemPedidoController {
         ipd.editarItemPedido(ip);
     }
     
-    
+    public int indiceItemPedido(){
+        ItemPedido ip = new ItemPedido();
+        int indice = ip.indiceItemPedido();
+        return indice;
+    }
     
     
 }

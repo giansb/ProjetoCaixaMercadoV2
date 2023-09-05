@@ -10,10 +10,12 @@ import controller.ItemPedidoController;
 import controller.PedidoController;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.table.DefaultTableModel;
 import model.ItemPedido;
 import model.Pedido;
 public class JanelaCaixa extends javax.swing.JFrame {
-
+    double subtotal, itemvalor;
+    
     /**
      * Creates new form JanelaCaixa
      */
@@ -818,14 +820,29 @@ public class JanelaCaixa extends javax.swing.JFrame {
     
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_F1){
+            subtotal += itemvalor;
+            itemvalor = 0;
             String cod = JOptionPane.showInputDialog("Código do item:");
             ItemPedidoController ipc = new ItemPedidoController();
-            ipc.cadastrarItemPedido(Integer.valueOf(cod));
+            ItemPedido ip = ipc.cadastrarItemPedido(Integer.valueOf(cod));
+            itemvalor = ip.getPrecoTotal();
+            jLabel26.setText(ip.getProduto_nome());
+            jLabel20.setText(String.valueOf(ip.getPrecoTotal()));
+            jLabel21.setText(String.valueOf(ip.getPrecoTotal()));
+            jLabel25.setText(String.valueOf(ip.getPrecoTotal() + subtotal));
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            String[] coluna = {"","","","",""};
             
             
         } else if(evt.getKeyCode() == KeyEvent.VK_F2){
-            System.out.println("inserir quantidade");
+            //System.out.println("inserir quantidade");
             String qtd = JOptionPane.showInputDialog("Quantidade:");
+            ItemPedido ip = new ItemPedido();
+            ip.AtualizarItemPedido(ip);
+            
+            
+            jLabel21.setText(String.valueOf(Integer.valueOf(qtd)*2));
+            
             System.out.println(qtd);
             
         } else if(evt.getKeyCode() == KeyEvent.VK_F3){

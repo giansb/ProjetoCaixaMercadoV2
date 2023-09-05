@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
  * @author gianb
  */
 public class ProdutoDAO {
-    Produto produto;
     
     public void cadastrarProduto(Produto produto){
         

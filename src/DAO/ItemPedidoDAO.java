@@ -23,6 +23,7 @@ public class ItemPedidoDAO {
                 + "" + ip.getPrecoTotal() + ","
                 + "" + ip.getIdProduto() + ","
                 + "" + ip.getIdPedido() + ")";
+        
         Conexao.executar(sql);
     }
     
@@ -32,8 +33,10 @@ public class ItemPedidoDAO {
                 + "pedido_idpedido = " + ip.getIdPedido() + ","
                 + "qtd = " + ip.getQntd() + ","
                 + "precototal = " + ip.getPrecoTotal() + ","
-                + "WHERE id_produto_has_pedido = " + ip.getId_has();
+                + "WHERE produto_idproduto = " + ip.getId_has();
+        
         Conexao.executar(sql);
+        
     }
     
     public void excluirItemPedido(int cod){
@@ -41,11 +44,12 @@ public class ItemPedidoDAO {
         Conexao.executar(sql);
     }
     
-    public static ArrayList<ItemPedido> carregarItensPedido(){
+    public ArrayList<ItemPedido> carregarItensPedido(){
         ArrayList<ItemPedido> lista = new ArrayList();
-        String sql = "SELECT produto_has_pedido.id_produto_has_pedido, produto_has_pedido.pedido_idpedido, produto.nome, produto.idproduto, pedido.idpedido, produto_has_pedido.qtd, produto_has_pedido.precototal FROM produto_has_pedido, produto, pedido"
-                    + "WHERE produto_has_pedido.pedido_idpedido = pedido.idpedido AND produto_has_pedido.produto_idproduto = produto.idproduto"
-                    + "ORDER BY id_produto_has_pedido";
+        String sql = "SELECT produto_has_pedido.id_produto_has_pedido, produto_has_pedido.pedido_idpedido, produto.nome, produto.idproduto, produto_has_pedido.qtd, produto_has_pedido.precototal, pedido.idpedido FROM produto_has_pedido, produto, pedido"
+                    + " WHERE produto_has_pedido.pedido_idpedido = pedido.idpedido AND produto_has_pedido.produto_idproduto = produto.idproduto"
+                    + " ORDER BY id_produto_has_pedido";
+        System.out.println("abcd");
         ResultSet rs = Conexao.consultar(sql);
         
         if(rs != null){
@@ -59,7 +63,7 @@ public class ItemPedidoDAO {
                     int qtd = rs.getInt("produto_has_pedido.qtd");
                     double preco_total = rs.getDouble("produto_has_pedido.precototal");
                     
-                    ItemPedido ip = new ItemPedido(cod,cont,id_produto,id_pedido,qtd,produto_nome,preco_total);
+                    ItemPedido ip = new ItemPedido(cod,id_produto,id_pedido,qtd,produto_nome,preco_total);
                     lista.add(ip);
                     cont++;
                     
