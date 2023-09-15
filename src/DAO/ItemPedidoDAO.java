@@ -28,14 +28,15 @@ public class ItemPedidoDAO {
     }
     
     public void editarItemPedido(ItemPedido ip){
-        String sql = "UPDATE produto_has_pedido SET"
+        String sql = "UPDATE produto_has_pedido SET "
                 + "produto_idproduto = " + ip.getIdProduto() + ","
                 + "pedido_idpedido = " + ip.getIdPedido() + ","
                 + "qtd = " + ip.getQntd() + ","
-                + "precototal = " + ip.getPrecoTotal() + ","
-                + "WHERE produto_idproduto = " + ip.getId_has();
-        
+                + "precototal = " + ip.getPrecoTotal() + ""
+                + "WHERE id_produto_has_pedido = " + ip.getId_has();
+        System.out.println(sql);
         Conexao.executar(sql);
+        
         
     }
     

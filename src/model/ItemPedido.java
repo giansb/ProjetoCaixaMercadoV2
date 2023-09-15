@@ -96,13 +96,20 @@ public class ItemPedido {
     public void AtualizarItemPedido(ItemPedido ip){
         ItemPedidoDAO ipd = new ItemPedidoDAO();
         ArrayList<ItemPedido> lista = ipd.carregarItensPedido();
+        boolean validador = false;
         for(ItemPedido p: lista){
-            if(p.getIdPedido() == ip.getId() && p.getIdProduto() == ip.getIdProduto()){
+            if(p.getId_has() == ip.getId_has()){
+                validador = true;
+            } 
+            
+            
+        }
+        if(validador){
                 ipd.editarItemPedido(ip);
             } else {
                 JOptionPane.showMessageDialog(null, "não há nenhum item a ser editado");
             }
-        }
+        
     }
     
     public int indiceItemPedido(){

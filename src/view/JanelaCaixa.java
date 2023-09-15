@@ -15,7 +15,7 @@ import model.ItemPedido;
 import model.Pedido;
 public class JanelaCaixa extends javax.swing.JFrame {
     double subtotal, itemvalor;
-    
+    ItemPedido ipedido;
     /**
      * Creates new form JanelaCaixa
      */
@@ -820,28 +820,36 @@ public class JanelaCaixa extends javax.swing.JFrame {
     
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_F1){
+            if(jLabel26.getText().isEmpty()){
+                ipedido.AtualizarItemPedido(ipedido);
+            }
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
             subtotal += itemvalor;
+            
             itemvalor = 0;
             String cod = JOptionPane.showInputDialog("Código do item:");
             ItemPedidoController ipc = new ItemPedidoController();
-            ItemPedido ip = ipc.cadastrarItemPedido(Integer.valueOf(cod));
-            itemvalor = ip.getPrecoTotal();
-            jLabel26.setText(ip.getProduto_nome());
-            jLabel20.setText(String.valueOf(ip.getPrecoTotal()));
-            jLabel21.setText(String.valueOf(ip.getPrecoTotal()));
-            jLabel25.setText(String.valueOf(ip.getPrecoTotal() + subtotal));
-            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-            String[] coluna = {"","","","",""};
+            ipedido = ipc.cadastrarItemPedido(Integer.valueOf(cod), model);
+            if(ipedido != null){
+                itemvalor = ipedido.getPrecoTotal();
+                jLabel26.setText(ipedido.getProduto_nome());
+                jLabel20.setText(String.valueOf(ipedido.getPrecoTotal()));
+                jLabel21.setText(String.valueOf(ipedido.getPrecoTotal()));
+                jLabel25.setText(String.valueOf(ipedido.getPrecoTotal() + subtotal));  
+            }
             
             
         } else if(evt.getKeyCode() == KeyEvent.VK_F2){
             //System.out.println("inserir quantidade");
             String qtd = JOptionPane.showInputDialog("Quantidade:");
             ItemPedido ip = new ItemPedido();
-            ip.AtualizarItemPedido(ip);
+            ipedido.setQntd(Integer.valueOf(qtd));
             
             
-            jLabel21.setText(String.valueOf(Integer.valueOf(qtd)*2));
+            String totalproduto = String.valueOf(Integer.valueOf(qtd)* ipedido.getPrecoTotal());
+            jLabel21.setText(totalproduto);
+            jLabel25.setText(String.valueOf(Double.valueOf(totalproduto) + subtotal));
+            itemvalor = Double.valueOf(totalproduto) + subtotal;
             
             System.out.println(qtd);
             
