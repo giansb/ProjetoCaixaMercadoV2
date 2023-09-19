@@ -23,6 +23,8 @@ public class JanelaCaixa extends javax.swing.JFrame {
         initComponents();
         this.setFocusable(rootPaneCheckingEnabled);
         PedidoController pc = new PedidoController();
+        ItemPedido ipf = new ItemPedido();
+        
         pc.criarPedido();
         
         
@@ -819,6 +821,7 @@ public class JanelaCaixa extends javax.swing.JFrame {
     
     
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        
         if(evt.getKeyCode() == KeyEvent.VK_F1){
             if(jLabel26.getText().isEmpty()){
                 ipedido.AtualizarItemPedido(ipedido);
@@ -851,7 +854,6 @@ public class JanelaCaixa extends javax.swing.JFrame {
             jLabel25.setText(String.valueOf(Double.valueOf(totalproduto) + subtotal));
             itemvalor = Double.valueOf(totalproduto) + subtotal;
             
-            System.out.println(qtd);
             
         } else if(evt.getKeyCode() == KeyEvent.VK_F3){
             // ira excluir o ultimo item do pedido

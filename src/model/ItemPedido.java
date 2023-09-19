@@ -117,11 +117,15 @@ public class ItemPedido {
         ArrayList<ItemPedido> lista = ip.carregarItensPedido();
         
         int indice = lista.size();
-        int ind;
+        int ind =0;
         if(indice<1) {
             ind = 0;
         } else {
-            ind = lista.size();
+            for(ItemPedido ipl : lista){
+                
+                    ind = ipl.getId_has()+1;
+                
+            }
         }
         return ind;
         
