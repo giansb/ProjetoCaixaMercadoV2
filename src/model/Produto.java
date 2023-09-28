@@ -5,6 +5,7 @@
 package model;
 
 import DAO.ProdutoDAO;
+import controller.ProdutoController;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -55,6 +56,54 @@ public class Produto {
         return p.getProduto();
         
     }
+    
+    public boolean RemoverProduto(int cod){
+        boolean verificador = false;
+        ArrayList<Produto> lista = carregarProdutos();
+        Produto p = ProdutoController.procurarProduto(cod);
+        ProdutoDAO pd = new ProdutoDAO();
+        try {
+            pd.excluir(p);
+            verificador = true;
+        } catch (Exception e) {
+            
+        }
+        return verificador;
+        
+    }
+    
+    public boolean editarProduto(Produto produto){
+        boolean verificador = false;
+        ProdutoDAO p = new ProdutoDAO();
+        try {
+            p.editar(produto);
+            verificador = true;
+        } catch (Exception e) {
+            
+        }
+        return verificador;
+    }
+    
+    public boolean cadastrarProduto(Produto produto){
+        boolean verificador = false;
+        try {
+            ProdutoDAO p = new ProdutoDAO();
+            p.cadastrarProduto(produto);
+            verificador = true;
+        } catch (Exception e) {
+            
+        }
+        return verificador;
+    }
+    
+    public ArrayList<Produto> carregarProdutos(){
+        
+        
+        ProdutoDAO p = new ProdutoDAO();
+        return p.getProduto();
+    }
+    
+    
     
     
 

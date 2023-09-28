@@ -18,23 +18,10 @@ public class ProdutoController {
     
     
     public ArrayList<Produto> carregarProdutos(){
-        
-        
-        ProdutoDAO p = new ProdutoDAO();
-        return p.getProduto();
+        Produto p = new Produto();
+        return p.carregarProdutos();
     }
-    
-    
-    public void cadastrarProduto(Produto produto){
-        ProdutoDAO p = new ProdutoDAO();
-        p.cadastrarProduto(produto);
-    }
-    
-    
-    
-    
-    
-    
+
     public static Produto procurarProduto(int cod){
         Produto p = new Produto();
         ArrayList<Produto> lista = p.getProduto();
@@ -52,18 +39,38 @@ public class ProdutoController {
     }
     
     public void RemoverProduto(int cod){
-        ArrayList<Produto> lista = carregarProdutos();
-        Produto p = ProdutoController.procurarProduto(cod);
-        ProdutoDAO pd = new ProdutoDAO();
-        pd.excluir(p);
-        JOptionPane.showMessageDialog(null, "Produto removido com sucesso");
+        Produto p = new Produto();
+        boolean ver = p.RemoverProduto(cod);
+        
+        if(ver == true){
+            JOptionPane.showMessageDialog(null, "Produto removido");
+        } else{
+            JOptionPane.showMessageDialog(null, "Ops! Erro na remoção do produto");
+        }
         
     }
     
     public void editarProduto(Produto produto){
-        ProdutoDAO p = new ProdutoDAO();
-        p.editar(produto);
-        JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso");
+        Produto p = new Produto();
+        boolean ver = p.editarProduto(produto);
+        
+        if(ver == true){
+            JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso");
+        } else{
+            JOptionPane.showMessageDialog(null, "Ops! Erro na atualização do produto");
+        }
+        
+    }
+    
+      public void cadastrarProduto(Produto produto){
+        Produto p = new Produto();
+        boolean ver = p.cadastrarProduto(produto);
+        
+        if(ver == true){
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
+        } else{
+            JOptionPane.showMessageDialog(null, "Ops! Erro no cadastro do produto");
+        }
     }
     
 }
