@@ -19,8 +19,8 @@ import model.Produto;
  */
 public class ItemPedidoController {
     static int cont = 0;
-    
-    public ItemPedido cadastrarItemPedido(int cod, DefaultTableModel model){
+    //DefaultTableModel model
+    public ItemPedido cadastrarItemPedido(int cod, ArrayList<ItemPedido> array){
         boolean verificador = false;
         
         ItemPedido ip = new ItemPedido();
@@ -33,20 +33,21 @@ public class ItemPedidoController {
                 PedidoController pc = new PedidoController();
                 ip.setId_has(this.indiceItemPedido());
                 ip.setProduto_nome(p.getNome());
-                ip.setQntd(ip.getQntd());
+                ip.setQntd(1);
                 ip.setPrecoTotal(p.getPreco());
                 ip.setIdProduto(p.getCodigo());
                 ip.registrarItemPedido(p);
                 
-            String[] coluna = {"","","","",""};
-            coluna[0] = String.valueOf(cont);
-            coluna[1] = String.valueOf(ip.getIdProduto());
-            coluna[2] = String.valueOf(ip.getProduto_nome());
-            coluna[3] = String.valueOf(1);
-            coluna[4] = String.valueOf(ip.getPrecoTotal());
-            model.addRow(coluna);
+            //String[] coluna = {"","","","",""};
+            //coluna[0] = String.valueOf(cont);
+            //coluna[1] = String.valueOf(ip.getIdProduto());
+            //coluna[2] = String.valueOf(ip.getProduto_nome());
+            //coluna[3] = String.valueOf(1);
+            //coluna[4] = String.valueOf(ip.getPrecoTotal());
+            //model.addRow(coluna);
+            array.add(ip);
             verificador = true;
-            cont++;
+
             
             
         }
@@ -70,6 +71,28 @@ public class ItemPedidoController {
         ItemPedido ip = new ItemPedido();
         int indice = ip.indiceItemPedido();
         return indice;
+    }
+    
+    public void removerLinhas(DefaultTableModel model){
+        cont = 0;
+        
+            for(int i=0;i<model.getRowCount();i++){
+                model.removeRow(0);
+            
+        }
+    }
+    
+    public void atualizarTabela(DefaultTableModel model, ArrayList<ItemPedido> array){
+        for(ItemPedido p : array){
+            String[] coluna = {"","","","",""};
+            coluna[0] = String.valueOf(cont);
+            coluna[1] = String.valueOf(p.getIdProduto());
+            coluna[2] = String.valueOf(p.getProduto_nome());
+            coluna[3] = String.valueOf(p.getQntd());
+            coluna[4] = String.valueOf(p.getPrecoTotal());
+            model.addRow(coluna);
+            cont++;
+        }
     }
     
     

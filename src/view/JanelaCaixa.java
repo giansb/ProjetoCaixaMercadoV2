@@ -10,6 +10,7 @@ import controller.ItemPedidoController;
 import controller.PedidoController;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import model.ItemPedido;
 import model.Pedido;
@@ -18,6 +19,7 @@ public class JanelaCaixa extends javax.swing.JFrame {
     ItemPedido ipedido;
     int qtdg = 0;
     double totalprodutog = 0;
+    ArrayList<ItemPedido> array = new ArrayList();
     /**
      * Creates new form JanelaCaixa
      */
@@ -757,13 +759,15 @@ public class JanelaCaixa extends javax.swing.JFrame {
         if(evt.getKeyCode() == KeyEvent.VK_F1){
             String cod = JOptionPane.showInputDialog("Código do item:");
             if(cod == null){
-                System.out.println("cariu no laco do null");
+                System.out.println("caiu no laco do null");
             } else {
                 if(jLabel26.getText().length()>1){
                 System.out.println("entrando no laco");
                 ipedido.setQntd(qtdg);
                 ipedido.setPrecoTotal(totalprodutog);
-                ipedido.AtualizarItemPedido(ipedido);
+                ItemPedidoController ipc = new ItemPedidoController();
+                ipc.atualizarItemPedido(ipedido);
+                
             }
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
             subtotal += itemvalor;
@@ -771,7 +775,11 @@ public class JanelaCaixa extends javax.swing.JFrame {
             itemvalor = 0;
             
             ItemPedidoController ipc = new ItemPedidoController();
-            ipedido = ipc.cadastrarItemPedido(Integer.valueOf(cod), model);
+            ipedido = ipc.cadastrarItemPedido(Integer.valueOf(cod), array);
+            
+            ipc.removerLinhas(model);
+            ipc.atualizarTabela(model, array);
+            //array.add(ipedido);
             if(ipedido != null){
                 itemvalor = ipedido.getPrecoTotal();
                 jLabel26.setText(ipedido.getProduto_nome());
@@ -812,6 +820,9 @@ public class JanelaCaixa extends javax.swing.JFrame {
             System.out.println("calcular troco");
         } else if(evt.getKeyCode() == KeyEvent.VK_F8){
             System.out.println("fechar pedido");
+            ItemPedidoController ipc = new ItemPedidoController();
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            ipc.removerLinhas(model);
         }
             
     }//GEN-LAST:event_formKeyPressed
