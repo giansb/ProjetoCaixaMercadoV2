@@ -8,18 +8,25 @@ package view;
 import com.sun.glass.events.KeyEvent;
 import controller.ItemPedidoController;
 import controller.PedidoController;
+import controller.ProdutoController;
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import model.ItemPedido;
 import model.Pedido;
+import model.Produto;
 public class JanelaCaixa extends javax.swing.JFrame {
     double subtotal, itemvalor;
     ItemPedido ipedido;
-    int qtdg = 0;
+    int qtdg = 1;
     double totalprodutog = 0;
     ArrayList<ItemPedido> array = new ArrayList();
+    String cpf = "000.000.000-00";
+    boolean vet = false;
+    String pagamento = "";
+    int ver = 0;
     /**
      * Creates new form JanelaCaixa
      */
@@ -28,6 +35,8 @@ public class JanelaCaixa extends javax.swing.JFrame {
         this.setFocusable(rootPaneCheckingEnabled);
         PedidoController pc = new PedidoController();
         ItemPedido ipf = new ItemPedido();
+       
+        
         
         pc.criarPedido();
         
@@ -45,8 +54,11 @@ public class JanelaCaixa extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
         panelRound2 = new view.PanelRound();
         panelRound3 = new view.PanelRound();
+        jLabel29 = new javax.swing.JLabel();
         panelRound4 = new view.PanelRound();
         panelRound5 = new view.PanelRound();
         jLabel6 = new javax.swing.JLabel();
@@ -65,12 +77,12 @@ public class JanelaCaixa extends javax.swing.JFrame {
         panelRound17 = new view.PanelRound();
         jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
         panelRound21 = new view.PanelRound();
         panelRound22 = new view.PanelRound();
         jLabel2 = new javax.swing.JLabel();
@@ -95,8 +107,6 @@ public class JanelaCaixa extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -109,15 +119,31 @@ public class JanelaCaixa extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(207, 0, 0));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("MERCADINHO DEV");
+
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carrinho.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 72, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         panelRound2.setBackground(new java.awt.Color(255, 255, 255));
@@ -134,7 +160,7 @@ public class JanelaCaixa extends javax.swing.JFrame {
         );
         panelRound2Layout.setVerticalGroup(
             panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 57, Short.MAX_VALUE)
         );
 
         panelRound3.setBackground(new java.awt.Color(255, 255, 255));
@@ -143,15 +169,24 @@ public class JanelaCaixa extends javax.swing.JFrame {
         panelRound3.setRoundTopLeft(15);
         panelRound3.setRoundTopRight(15);
 
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/deivith (1).gif"))); // NOI18N
+        jLabel29.setMaximumSize(new java.awt.Dimension(340, 454));
+
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
         panelRound3.setLayout(panelRound3Layout);
         panelRound3Layout.setHorizontalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelRound3Layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelRound3Layout.setVerticalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 257, Short.MAX_VALUE)
+            .addGroup(panelRound3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panelRound4.setRoundBottomLeft(15);
@@ -333,9 +368,6 @@ public class JanelaCaixa extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("F3 - EXCLUIR ITEM");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel11.setText("F4 - EXCLUIR VENDA");
-
         jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel27.setText("F1 -INSERIR ITEM");
 
@@ -351,6 +383,9 @@ public class JanelaCaixa extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setText("F8 - FECHAR PEDIDO");
 
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel28.setText("F9 - CONSULTAR PREÇO");
+
         javax.swing.GroupLayout panelRound17Layout = new javax.swing.GroupLayout(panelRound17);
         panelRound17.setLayout(panelRound17Layout);
         panelRound17Layout.setHorizontalGroup(
@@ -358,14 +393,14 @@ public class JanelaCaixa extends javax.swing.JFrame {
             .addGroup(panelRound17Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelRound17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
                     .addComponent(jLabel1)
                     .addComponent(jLabel10)
                     .addComponent(jLabel27)
                     .addComponent(jLabel15)
                     .addComponent(jLabel14)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel28))
                 .addContainerGap(289, Short.MAX_VALUE))
         );
         panelRound17Layout.setVerticalGroup(
@@ -378,8 +413,6 @@ public class JanelaCaixa extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
@@ -387,7 +420,9 @@ public class JanelaCaixa extends javax.swing.JFrame {
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel15)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel28)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         panelRound21.setRoundBottomLeft(15);
@@ -555,7 +590,7 @@ public class JanelaCaixa extends javax.swing.JFrame {
         panelRound9Layout.setHorizontalGroup(
             panelRound9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound9Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -563,8 +598,8 @@ public class JanelaCaixa extends javax.swing.JFrame {
             panelRound9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRound9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panelRound23.setBackground(new java.awt.Color(207, 0, 0));
@@ -648,25 +683,26 @@ public class JanelaCaixa extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelRound9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(panelRound21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                                .addComponent(panelRound10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)))
-                        .addGap(11, 11, 11)
+                                .addGap(38, 38, 38)
+                                .addComponent(panelRound10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(panelRound3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
                                 .addComponent(panelRound27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(panelRound17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 225, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(panelRound17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelRound23, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -702,13 +738,6 @@ public class JanelaCaixa extends javax.swing.JFrame {
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("HISTÓRICO");
-
-        jMenuItem4.setText("HISTÓRICO DE VENDAS");
-        jMenu2.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -758,41 +787,57 @@ public class JanelaCaixa extends javax.swing.JFrame {
         
         if(evt.getKeyCode() == KeyEvent.VK_F1){
             String cod = JOptionPane.showInputDialog("Código do item:");
+            ItemPedidoController i = new ItemPedidoController();
+            boolean verificador = i.VerificarItemPedido(Integer.parseInt(cod));
             if(cod == null){
-                System.out.println("caiu no laco do null");
-            } else {
+                //System.out.println("caiu no laco do null");
+            } else if (cod != null  && verificador){
+                
                 if(jLabel26.getText().length()>1){
-                System.out.println("entrando no laco");
+                //System.out.println("entrando no laco");
                 ipedido.setQntd(qtdg);
-                ipedido.setPrecoTotal(totalprodutog);
-                ItemPedidoController ipc = new ItemPedidoController();
-                ipc.atualizarItemPedido(ipedido);
+                ipedido.setPrecoTotal(itemvalor);
+                if(vet){
+                    
+                } else {
+                    subtotal += itemvalor;
+                    itemvalor = 0;
+                    ItemPedidoController ipc = new ItemPedidoController();
+                    ipc.atualizarItemPedido(ipedido);
+                }
                 
             }
+            qtdg = 1;
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-            subtotal += itemvalor;
+            
             
             itemvalor = 0;
             
             ItemPedidoController ipc = new ItemPedidoController();
             ipedido = ipc.cadastrarItemPedido(Integer.valueOf(cod), array);
-            
+            vet = false;
             ipc.removerLinhas(model);
             ipc.atualizarTabela(model, array);
-            //array.add(ipedido);
+            ver = 1;
             if(ipedido != null){
                 itemvalor = ipedido.getPrecoTotal();
                 jLabel26.setText(ipedido.getProduto_nome());
-                jLabel20.setText(String.valueOf(ipedido.getPrecoTotal()));
-                jLabel21.setText(String.valueOf(ipedido.getPrecoTotal()));
-                jLabel25.setText(String.valueOf(ipedido.getPrecoTotal() + subtotal)); 
+                //jLabel20.setText(String.valueOf(ipedido.getPrecoTotal()));
+                jLabel20.setText(String.format("%.2f", ipedido.getPrecoTotal()));
+                //jLabel21.setText(String.valueOf(ipedido.getPrecoTotal()));
+                jLabel21.setText(String.format("%.2f", ipedido.getPrecoTotal()));
+                //jLabel25.setText(String.valueOf(ipedido.getPrecoTotal() + subtotal));
+                jLabel25.setText(String.valueOf(String.format("%.2f",ipedido.getPrecoTotal() + subtotal)));
+                
+                
             }
             }
             
             
         } else if(evt.getKeyCode() == KeyEvent.VK_F2){
             //System.out.println("inserir quantidade");
-            String qtd = JOptionPane.showInputDialog("Quantidade:");
+            if(array.size()>=1){
+                String qtd = JOptionPane.showInputDialog("Quantidade:");
             qtdg = Integer.valueOf(qtd);
             ItemPedido ip = new ItemPedido();
             ipedido.setQntd(Integer.valueOf(qtd));
@@ -802,27 +847,128 @@ public class JanelaCaixa extends javax.swing.JFrame {
             totalprodutog = Double.parseDouble(totalproduto);
             jLabel21.setText(totalproduto);
             jLabel25.setText(String.valueOf(Double.valueOf(totalproduto) + subtotal));
-            itemvalor = Double.valueOf(totalproduto) + subtotal;
+            itemvalor = Double.parseDouble(jLabel21.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Não há item para editar a quantidade");
+            }
             
             
         } else if(evt.getKeyCode() == KeyEvent.VK_F3){
             // ira excluir o ultimo item do pedido
-            System.out.println("excluir item");
+            String cod = JOptionPane.showInputDialog("indice: ");
+            if(cod == null){
+                
+            } else if(Integer.parseInt(cod)>array.size()-1) {
+                JOptionPane.showMessageDialog(null, "Indice não encontrado");
+            } else {
+                ItemPedidoController ipc = new ItemPedidoController();
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+                double valor = ipc.removerItemPedido(Integer.valueOf(cod), array, model);
+                double valort = Double.valueOf(jLabel25.getText().replace(',', '.'));
+                double novovalor = valort - valor;
+                subtotal = novovalor;
+                jLabel25.setText(String.format("%.2f", novovalor));
+                System.out.println(subtotal);
+                vet = true;
+                
+                
+                
+            }
+            
+            
+            
         } else if(evt.getKeyCode() == KeyEvent.VK_F4){
             System.out.println("Excluir venda");
+            
+            
             // vai excluir a venda atual e todos os itens do pedido dela
         } else if(evt.getKeyCode() == KeyEvent.VK_F5){
-            System.out.println("add cpf");
+            String cpfinput = JOptionPane.showInputDialog(null, "Adicionar CPF: ");
+            if(cpfinput != null){
+                cpf = cpfinput;
+                System.out.println(cpf);
+            }
+            
+            
             
         } else if(evt.getKeyCode() == KeyEvent.VK_F6){
-            System.out.println("forma de pagamento");
+            String variaveltp = JOptionPane.showInputDialog(null, "1- dinheiro   2- c/crédito  3- c/débito  4- PIX");
+            switch(variaveltp){
+                case "1":
+                    pagamento = "DINHEIRO";
+                    break;
+                case "2":
+                    pagamento = "C/CRÉDITO";
+                    break;
+                case "3":
+                    pagamento = "C/DÉBITO";
+                    break;
+                case "4":
+                    pagamento = "PIX";
+                    break;
+                default:
+                    pagamento = "";
+                    
+            }
+            
         } else if(evt.getKeyCode() == KeyEvent.VK_F7){
-            System.out.println("calcular troco");
+            double valort = ipedido.getPrecoTotal() + subtotal;
+            System.out.println("teste");
+            double valorR = Double.valueOf(JOptionPane.showInputDialog(null, "VALOR RECEBIDO:"));
+            if(valort>valorR){
+                JOptionPane.showMessageDialog(null, "O VALOR RECEBIDO É MENOR QUE O VALOR TOTAL");
+            } else {
+                subtotal = (valorR-valort);
+                jLabel22.setText(String.format("%.2f", valorR));
+                jLabel23.setText(String.format("%.2f", valorR-Double.valueOf(jLabel25.getText().replace(',', '.'))));
+            }
+            
         } else if(evt.getKeyCode() == KeyEvent.VK_F8){
-            System.out.println("fechar pedido");
-            ItemPedidoController ipc = new ItemPedidoController();
+            PedidoController pic = new PedidoController();
+            pic.EditarPedido(ver,cpf,pagamento, Double.valueOf(jLabel25.getText().replace(',', '.')), array);
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-            ipc.removerLinhas(model);
+            ItemPedidoController ipc = new ItemPedidoController();
+            ipc.atualizarTabela(model, array);
+            if(jLabel26.getText().length()>1){
+                //System.out.println("entrando no laco");
+                ipedido.setQntd(qtdg);
+                ipedido.setPrecoTotal(itemvalor);
+                if(vet){
+                    
+                } else {
+                    subtotal += itemvalor;
+                    itemvalor = 0;
+                    //ItemPedidoController ipc = new ItemPedidoController();
+                    ipc.atualizarItemPedido(ipedido);
+                }
+            jLabel20.setText("00,00");
+            jLabel21.setText("00,00");
+            jLabel22.setText("00,00");
+            jLabel23.setText("00,00");
+            jLabel25.setText("00,00");
+            jLabel26.setText("");
+            subtotal = 0;
+            pagamento = "";
+            
+            
+            
+        } else if(evt.getKeyCode() == KeyEvent.VK_F9){
+            String cod = JOptionPane.showInputDialog("Código do item:");
+            ItemPedidoController i = new ItemPedidoController();
+            boolean verificador = i.VerificarItemPedido(Integer.parseInt(cod));
+            if(cod == null){
+                
+            } else {
+                ProdutoController pc = new ProdutoController();
+                Produto p = new Produto();
+                p = pc.procurarProduto(Integer.parseInt(cod));
+                
+                if(p != null){
+                JOptionPane.showMessageDialog(null, "nome: " + p.getNome()+"   Valor: R$" + p.getPreco());
+            }
+            }
+            
+        }
         }
             
     }//GEN-LAST:event_formKeyPressed
@@ -865,7 +1011,6 @@ public class JanelaCaixa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -883,19 +1028,21 @@ public class JanelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

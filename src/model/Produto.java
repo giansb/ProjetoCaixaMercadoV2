@@ -103,6 +103,22 @@ public class Produto {
         return p.getProduto();
     }
     
+    public static Produto procurarProduto(int cod){
+       Produto p = new Produto();
+        ArrayList<Produto> lista = p.getProduto();
+         for(Produto pe:lista){
+                if(pe.getCodigo() == cod){
+                    return pe;
+                }
+                else{
+                    
+                }
+                
+         }
+         JOptionPane.showMessageDialog(null, "ID do produto não encontrado");
+         return null;
+    }
+    
     
     
     

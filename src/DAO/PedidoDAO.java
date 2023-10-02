@@ -25,13 +25,13 @@ public class PedidoDAO {
         Conexao.executar(sql);
     }
     
-    public static void editarPedido(Pedido p){
+    public void editarPedido(Pedido p){
         String sql = "UPDATE pedido SET"
-                + "tipo_pagamento = '" + p.getTipoPagamento() +"',"
-                + "cpf = '" + p.getCpf() + "',"
-                + "data = now(),"
-                + "total = " + p.getTotal() + ""
-                + "WHERE pedido.idpedido = " + p.getId();
+                + " tipo_pagamento = '" + p.getTipoPagamento() +"',"
+                + " cpf = '" + p.getCpf() + "',"
+                + " data = now(),"
+                + " total = " + p.getTotal() + ""
+                + " WHERE pedido.idpedido = " + p.getId();
         Conexao.executar(sql);
     }
     public void excluir(int cod ){

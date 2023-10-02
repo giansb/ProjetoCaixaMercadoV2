@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,7 +26,7 @@ public class ItemPedidoController {
         ItemPedido ip = new ItemPedido();
         Produto pi = new Produto();
         ArrayList<Produto> lista = pi.getProduto();
-        System.out.println(lista);
+
         
         for(Produto p : lista){
             if(p.getCodigo() == cod){
@@ -56,6 +56,7 @@ public class ItemPedidoController {
         
         if(!verificador){
                 JOptionPane.showMessageDialog(null, "nenhum item cadastrado com esse codigo");
+                ip = null;
         }
         return ip;
         
@@ -63,8 +64,11 @@ public class ItemPedidoController {
     
     
     public void atualizarItemPedido(ItemPedido ip){
-        ItemPedidoDAO ipd = new ItemPedidoDAO();
-        ipd.editarItemPedido(ip);
+        ItemPedido ipm = new ItemPedido();
+        ipm.AtualizarItemPedido(ip);
+        
+        
+        
     }
     
     public int indiceItemPedido(){
@@ -76,13 +80,13 @@ public class ItemPedidoController {
     public void removerLinhas(DefaultTableModel model){
         cont = 0;
         
-            for(int i=0;i<model.getRowCount();i++){
+            while(model.getRowCount()>0){
                 model.removeRow(0);
-            
-        }
+            }
     }
     
     public void atualizarTabela(DefaultTableModel model, ArrayList<ItemPedido> array){
+        this.removerLinhas(model);
         for(ItemPedido p : array){
             String[] coluna = {"","","","",""};
             coluna[0] = String.valueOf(cont);
@@ -94,6 +98,24 @@ public class ItemPedidoController {
             cont++;
         }
     }
+    
+    public boolean VerificarItemPedido(int cod){
+        ItemPedido ip = new ItemPedido();
+        return ip.VerificarItemPedido(cod);
+    }
+    
+    public double removerItemPedido(int cod, ArrayList<ItemPedido> array, DefaultTableModel model){
+                ItemPedido ip = new ItemPedido();
+                double valor = ip.removerItemPedido(cod, array, model);
+                this.removerLinhas(model);
+                this.atualizarTabela(model, array);
+                
+                return valor;
+    }
+    
+    
+    
+    
     
     
 }

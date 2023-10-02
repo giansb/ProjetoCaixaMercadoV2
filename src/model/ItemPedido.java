@@ -6,12 +6,16 @@
 package model;
 
 import DAO.ItemPedidoDAO;
+import DAO.ProdutoDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 
 
 public class ItemPedido {
+    static int cont = 0;
     private int id_has;
     private int id;
     private int idPedido;
@@ -27,6 +31,9 @@ public class ItemPedido {
         this.qntd = qntd;
         this.produto_nome = produto_nome;
         this.precoTotal = precoTotal;
+        boolean verificador;
+        
+        
     }
     
     public ItemPedido(){
@@ -95,20 +102,7 @@ public class ItemPedido {
     
     public void AtualizarItemPedido(ItemPedido ip){
         ItemPedidoDAO ipd = new ItemPedidoDAO();
-        ArrayList<ItemPedido> lista = ipd.carregarItensPedido();
-        boolean validador = false;
-        for(ItemPedido p: lista){
-            if(p.getId_has() == ip.getId_has()){
-                validador = true;
-            } 
-            
-            
-        }
-        if(validador){
-                ipd.editarItemPedido(ip);
-            } else {
-                JOptionPane.showMessageDialog(null, "não há nenhum item a ser editado");
-            }
+        ipd.editarItemPedido(ip);
         
     }
     
@@ -142,11 +136,50 @@ public class ItemPedido {
         ip.setIdProduto(p1.getCodigo());
         ip.setQntd(1);
         ip.setId_has(ind);
+        ip.setId(cont);
         ItemPedidoDAO ipd = new ItemPedidoDAO();
         ipd.cadastrarItemPedido(ip);
-        
-        
-        
+        cont++;
     }
+        
+        public boolean VerificarItemPedido(int cod){
+            boolean verificador = false;
+            ProdutoDAO pd = new ProdutoDAO();
+            ArrayList<Produto> lista = pd.getProduto();
+            for(Produto p: lista){
+                if(p.getCodigo() == cod){
+                    verificador = true;
+                }
+            }
+            if(verificador == false){
+                JOptionPane.showMessageDialog(null, "Produto não registrado");
+            }
+            
+            
+            return verificador;
+            
+            
+        }
+        
+        
+        
+        
+        public void removerLinhas(DefaultTableModel model){
+        cont = 0;
+        
+            while(model.getRowCount()>0){
+                model.removeRow(0);
+            }
+    }
+        
+        public double removerItemPedido(int cod, ArrayList<ItemPedido> array, DefaultTableModel model){
+            ItemPedido selecionado = array.get(cod);
+            double valor = selecionado.getPrecoTotal();
+            array.remove(cod);
+            ItemPedidoDAO ipd = new ItemPedidoDAO();
+            ipd.excluirItemPedido(selecionado.getId_has());
+            
+            return valor;
+        }
     
 }

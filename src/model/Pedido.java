@@ -96,8 +96,27 @@ public class Pedido {
         return qntd;
         
     }
+
+
+    public void editarPedido(String cpf, String pagamento, double total) {
+        PedidoDAO pd = new PedidoDAO();
+        Pedido p = new Pedido();
+        p.setId(this.pedidoAtual());
+        p.setCpf(cpf);
+        p.setTipoPagamento(pagamento);
+        p.setTotal(total);
+        pd.editarPedido(p);
+    }
     
+    public ArrayList<Pedido> carregarPedidos(){
+        PedidoDAO pd = new PedidoDAO();
+        return pd.carregarPedidos();
+    }
     
+    public void cadastrarPedido(Pedido p){
+        PedidoDAO pd = new PedidoDAO();
+        pd.cadastrarPedido(p);
+    }
     
     
     

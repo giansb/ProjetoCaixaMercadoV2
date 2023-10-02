@@ -8,17 +8,25 @@ package controller;
 import DAO.PedidoDAO;
 import DAO.ProdutoDAO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import model.ItemPedido;
 import model.Pedido;
+
 
 
 
 public class PedidoController {
     
     public int quantidadePedidos(){
-        PedidoDAO pd = new PedidoDAO();
+        Pedido pd = new Pedido();
         ArrayList<Pedido> lista = new ArrayList();
         lista = pd.carregarPedidos();
         return lista.size();
+    }
+    
+    public int PedidoAtual(){
+        Pedido p = new Pedido();
+        return p.pedidoAtual();
     }
     
     public void criarPedido(){
@@ -28,28 +36,41 @@ public class PedidoController {
             cont = 0;
             Pedido p = new Pedido();
             p.setId(cont);
-            PedidoDAO pd = new PedidoDAO();
+            Pedido pd = new Pedido();
             pd.cadastrarPedido(p);
             
         }else{
             cont = this.quantidadePedidos();
-            PedidoDAO pd = new PedidoDAO();
+            Pedido pd = new Pedido();
             ArrayList<Pedido> lista = pd.carregarPedidos();
             Pedido p = lista.get(lista.size()-1);
             if(p.getTotal() == 0){
                 
             }else{
                 Pedido pe = new Pedido();
-                p.setId(cont);
+                pe.setId(cont);
 
                 pd.cadastrarPedido(pe);       
             }
         
             
         }
-        
-        
-        
     }
+    
+    public void EditarPedido(int cod,String cpf, String pagamento, double total, ArrayList<ItemPedido> array){
+        if(pagamento == ""){
+            JOptionPane.showMessageDialog(null, "Escolha a forma de pagamento");
+        } else if(cod != 0){
+            Pedido pm = new Pedido();
+            pm.editarPedido(cpf,pagamento,total);
+            this.criarPedido();
+            ItemPedidoController ip = new ItemPedidoController();
+            array.clear();
+            
+        }
+    }
+    
+   
+        
     
 }

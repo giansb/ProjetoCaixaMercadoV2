@@ -24,18 +24,7 @@ public class ProdutoController {
 
     public static Produto procurarProduto(int cod){
         Produto p = new Produto();
-        ArrayList<Produto> lista = p.getProduto();
-         for(Produto pe:lista){
-                if(pe.getCodigo() == cod){
-                    return pe;
-                }
-                else{
-                    
-                }
-                
-         }
-         JOptionPane.showMessageDialog(null, "ID do produto não encontrado");
-         return null;
+        return p.procurarProduto(cod);
     }
     
     public void RemoverProduto(int cod){
@@ -72,6 +61,8 @@ public class ProdutoController {
             JOptionPane.showMessageDialog(null, "Ops! Erro no cadastro do produto");
         }
     }
+      
+   
     
 }
     
