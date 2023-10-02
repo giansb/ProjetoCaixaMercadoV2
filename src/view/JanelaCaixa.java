@@ -58,7 +58,6 @@ public class JanelaCaixa extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         panelRound2 = new view.PanelRound();
         panelRound3 = new view.PanelRound();
-        jLabel29 = new javax.swing.JLabel();
         panelRound4 = new view.PanelRound();
         panelRound5 = new view.PanelRound();
         jLabel6 = new javax.swing.JLabel();
@@ -121,7 +120,7 @@ public class JanelaCaixa extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("MERCADINHO DEV");
+        jLabel4.setText("MERCADO DEV");
 
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carrinho.png"))); // NOI18N
 
@@ -169,24 +168,15 @@ public class JanelaCaixa extends javax.swing.JFrame {
         panelRound3.setRoundTopLeft(15);
         panelRound3.setRoundTopRight(15);
 
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/deivith (1).gif"))); // NOI18N
-        jLabel29.setMaximumSize(new java.awt.Dimension(340, 454));
-
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
         panelRound3.setLayout(panelRound3Layout);
         panelRound3Layout.setHorizontalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound3Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 492, Short.MAX_VALUE)
         );
         panelRound3Layout.setVerticalGroup(
             panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRound3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         panelRound4.setRoundBottomLeft(15);
@@ -935,20 +925,24 @@ public class JanelaCaixa extends javax.swing.JFrame {
                 ipedido.setPrecoTotal(itemvalor);
                 if(vet){
                     
-                } else {
+                } else if(pagamento == ""){
+                    
+                }
+                    else {
                     subtotal += itemvalor;
                     itemvalor = 0;
                     //ItemPedidoController ipc = new ItemPedidoController();
                     ipc.atualizarItemPedido(ipedido);
+                    jLabel20.setText("00,00");
+                    jLabel21.setText("00,00");
+                    jLabel22.setText("00,00");
+                    jLabel23.setText("00,00");
+                    jLabel25.setText("00,00");
+                    jLabel26.setText("");
+                    subtotal = 0;
+                    pagamento = "";
                 }
-            jLabel20.setText("00,00");
-            jLabel21.setText("00,00");
-            jLabel22.setText("00,00");
-            jLabel23.setText("00,00");
-            jLabel25.setText("00,00");
-            jLabel26.setText("");
-            subtotal = 0;
-            pagamento = "";
+            
             
             
             
@@ -1029,7 +1023,6 @@ public class JanelaCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
